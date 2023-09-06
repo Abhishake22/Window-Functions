@@ -1,0 +1,27 @@
+Scenario 2: Finding Sales Growth
+You have a "Sales" table with columns (Date, Revenue). Write a query to calculate the month-over-month revenue growth using a window function.
+
+Date	Revenue
+2023-01-01	1000
+2023-01-02	1200
+2023-01-03	1500
+2023-01-04	1800
+2023-01-05	2000
+2023-01-06	2200
+
+
+SELECT
+    Date,
+    Revenue,
+        ROUND(
+            CASE
+                WHEN LAG(CAST(Revenue AS DECIMAL)) OVER (ORDER BY Date) IS NULL THEN NULL
+                ELSE ((CAST(Revenue AS DECIMAL) - LAG(CAST(Revenue AS DECIMAL)) OVER (ORDER BY Date)) / LAG(CAST(Revenue AS DECIMAL)) OVER (ORDER BY Date)) * 100
+            END, 2
+        )
+    AS MoM_Growth
+FROM
+    Sales
+ORDER BY
+    Date;
+
