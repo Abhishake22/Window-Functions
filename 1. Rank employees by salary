@@ -1,0 +1,28 @@
+Employee:
+
+| EmployeeID |    Name    |  Salary  |
+|------------|------------|----------|
+|     1      |   John     |  60000   |
+|     2      |   Alice    |  75000   |
+|     3      |   Bob      |  55000   |
+|     4      |   Sarah    |  80000   |
+|     5      |   Mike     |  70000   |
+
+
+1. 1.You have an "Employees" table with columns (EmployeeID, Name, Salary).
+Write a query to rank employees by salary in descending order and display their names and ranks.
+
+
+Query:
+
+SELECT Name,Salary,DENSE_RANK() OVER (ORDER BY Salary desc) as Ranking
+FROM Employee
+
+Output:
+
+EmployeeID	Name	Salary
+1	John     	60000
+2	Alice    	75000
+3	Bob      	55000
+4	Sarah    	80000
+5	Mike     	70000
